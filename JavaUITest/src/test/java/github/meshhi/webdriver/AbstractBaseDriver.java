@@ -10,12 +10,12 @@ public abstract class AbstractBaseDriver implements IBaseDriver {
 
     public AbstractBaseDriver() {}
 
-    @Step(value="driver goes to {url}")
+    @Step(value="Переход на {url}")
     public void goToURL(String url) {
         driver.get(url);
     }
 
-    @Step(value="driver quit")
+    @Step(value="Закрытие сессии браузера")
     public void quit() {
         driver.quit();
     }

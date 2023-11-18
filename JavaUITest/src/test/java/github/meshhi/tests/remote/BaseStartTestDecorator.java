@@ -17,7 +17,7 @@ public class BaseStartTestDecorator {
     public AbstractBaseDriver driver;
 
     @Before
-    @Step(value="Test init with new driver and authorization pass")
+    @Step(value="BEFORE: Запуск авторизации перед основным тестом")
     public void setup() throws InterruptedException, MalformedURLException {
         // driver = new RemoteBaseDriver();
         driver = new BaseDriver();
@@ -25,6 +25,7 @@ public class BaseStartTestDecorator {
     }
 
     @After
+    @Step(value="AFTER: действия после теста")
     public void tearDown() {
         driver.quit();
     }
