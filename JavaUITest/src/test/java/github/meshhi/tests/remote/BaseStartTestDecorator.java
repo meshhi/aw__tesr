@@ -11,7 +11,6 @@ import github.meshhi.webdriver.AbstractBaseDriver;
 import github.meshhi.webdriver.BaseDriver;
 import github.meshhi.webdriver.RemoteBaseDriver;
 import io.qameta.allure.Step;
-import github.meshhi.utils.ConfProperties;
 import github.meshhi.utils.Warehouse;
 
 public class BaseStartTestDecorator {

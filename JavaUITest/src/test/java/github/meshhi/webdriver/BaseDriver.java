@@ -7,7 +7,5 @@ public class BaseDriver extends AbstractBaseDriver {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
         driver = new ChromeDriver();
         setDriverSettings();
-
-        
     }
 }
