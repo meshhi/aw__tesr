@@ -1,0 +1,54 @@
+{
+	"chrome": {
+		"default": "80.0",
+		"versions": {
+			"80.0": {
+				"image": "selenoid/vnc:chrome_80.0",
+				"port": "4444",
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"86.0": {
+				"image": "selenoid/vnc:chrome_86.0",
+				"port": "4444",
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"87.0": {
+				"image": "selenoid/vnc:chrome_87.0",
+				"port": "4444",
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"89.0": {
+				"image": "selenoid/vnc:chrome_89.0",
+				"port": "4444",
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"93.0": {
+				"image": "selenoid/vnc:chrome_93.0",
+				"port": "4444",
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"103.0": {
+				"image": "selenoid/vnc:chrome_103.0",
+				"port": "4444",
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"112.0": {
+				"image": "selenoid/vnc:chrome_112.0",
+				"port": "4444",
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"115.0": {
+				"image": "selenoid/vnc:chrome_115.0",
+				"port": "4444",
+				"env": [ "LANG=ru_RU.UTF-8", "LANGUAGE=ru:en", "LC_ALL=ru_RU.UTF-8" ],
+				"tmpfs": { "/tmp": "size=512m" }
+			},
+			"117.0": {
+				"image": "selenoid/vnc:chrome_117.0",
+				"port": "4444",
+				"env": [ "LANG=ru_RU.UTF-8", "LANGUAGE=ru:en", "LC_ALL=ru_RU.UTF-8" ],
+				"tmpfs": { "/tmp": "size=512m" }
+			}
+		}
+	}
+}

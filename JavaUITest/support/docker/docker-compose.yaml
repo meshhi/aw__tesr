@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  selenoid:
+    image: "aerokube/selenoid"
+    network_mode: bridge
+    container_name: selenoid
+    ports:
+      - "4444:4444"
+    environment:
+      TZ: "Europe/Moscow"
+      OVERRIDE_VIDEO_OUTPUT_DIR: ./selenoid/video/
+    command: >
+      sh -c "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && 
+      echo $TZ > /etc/timezone &&
+      exec selenoid" &&
+      -limit 8 && -timeout 10m
+    volumes:
+      - ".//config//:/etc/selenoid/" # assumed current dir contains browsers.json
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./selenoid/video/:/opt/selenoid/video/"
+  selenoid-ui:
+    image: "aerokube/selenoid-ui"
+    network_mode: bridge
+    container_name: selenoid_ui
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
