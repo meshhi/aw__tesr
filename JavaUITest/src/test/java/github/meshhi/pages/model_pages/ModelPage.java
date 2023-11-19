@@ -26,6 +26,8 @@ public class ModelPage {
     private WebElement schemaWindow;
     @FindBy(xpath = "//button[text()=' Добавить ']")
     private WebElement addModel;
+    @FindBy(xpath = "//button[text()=' Загрузить данные в хранилище ']")
+    private WebElement loadModel;
 
     public ModelPage(AbstractBaseDriver baseDriver) {
         PageFactory.initElements(baseDriver.driver, this);
@@ -82,5 +84,12 @@ public class ModelPage {
 
     public String getTitle() {
         return inputTitle.getAttribute("value");
+    }
+
+    @Step(value = "Запуск синхронизации данных в хранилище")
+    public void synchroModel() {
+        loadModel.click();
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Загрузка данных в хранилище началась']")));
     }
 }
