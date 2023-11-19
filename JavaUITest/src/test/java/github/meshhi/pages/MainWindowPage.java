@@ -19,8 +19,16 @@ public class MainWindowPage {
     private WebElement goToDatasrcBtn;
     @FindBy(css = "*[href=\"/app/models\"]")
     private WebElement goToModelBtn;
-    @FindBy(xpath = "//button[text()='Добавить']")
+    @FindBy(xpath = "//*[text()='Добавить']")
     private WebElement addBtn;
+    @FindBy(css = "input[placeholder='Поиск']")
+    private WebElement inputSearch;
+    @FindBy(xpath = "//button[text()=' Удалить']")
+    private WebElement deleteBtn;
+    @FindBy(xpath = "//*[text()='Добавить логическую модель']")
+    private WebElement optionAddLogicalModel;
+    @FindBy(css = ".cascading-deletion__buttons button:nth-child(1)")
+    private WebElement approveDeleteBtn;
 
     public MainWindowPage(AbstractBaseDriver baseDriver) {
         PageFactory.initElements(baseDriver.driver, this);
@@ -38,9 +46,45 @@ public class MainWindowPage {
         goToModelBtn.click();
     }
 
+    @Step(value = "Выбор логической модели")
+    public void chooseLogicaModel() {
+        optionAddLogicalModel.click();
+    }
+    
+
     @Step(value = "Добавить")
     public void clickAdd() {
         baseDriver.hoverElement(addBtn);
         addBtn.click();
+    }
+
+    @Step(value = "Поиск объекта {item}")
+    public void searchItem(String item) {
+        inputSearch.sendKeys(item);
+        checkItem(item);
+    }
+
+    @Step(value = "Выбор чекбокса {item}")
+    public void checkItem(String item) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[text()='" + item + "']/preceding-sibling::*")));
+        WebElement checkbox = driver.findElement(By.xpath("//td[text()='" + item + "']/preceding-sibling::*"));
+        checkbox.click();
+    }
+
+    @Step(value = "Удалить объект")
+    public void clickDelete() {
+        deleteBtn.click();
+        approveDeleteBtn.click();
+    }
+
+    @Step(value = "Проверка существования {item} в списке")
+    public Boolean isItemInList(String item) {
+        try {
+            driver.findElement(By.xpath("//td[text()='" + item + "']"));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

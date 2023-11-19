@@ -1,11 +1,8 @@
 package github.meshhi.tests.remote;
 
 import java.net.MalformedURLException;
-
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.By;
-
 import github.meshhi.pages.LoginPage;
 import github.meshhi.webdriver.AbstractBaseDriver;
 import github.meshhi.webdriver.BaseDriver;

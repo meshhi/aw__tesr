@@ -16,6 +16,8 @@ import io.qameta.allure.Step;
 public class CreateDatasourcePage {
     public WebDriver driver;
     public AbstractBaseDriver baseDriver;
+    @FindBy(xpath = "//button[text()=' Сохранить ']")
+    private WebElement saveBtn;
     @FindBy(css = "*[formcontrolname=\"type\"]")
     private WebElement connType;
     @FindBy(css = "input[formcontrolname=\"name\"]")
@@ -32,6 +34,16 @@ public class CreateDatasourcePage {
     private WebElement checkConnBtn;
     @FindBy(xpath = "//span[text()='ClickHouse']")
     private WebElement optionClickhouse;
+    @FindBy(css = ".aw-select-query input[placeholder='Поиск']")
+    private WebElement inputFind;
+    @FindBy(xpath = "//span[text()='Файл']")
+    private WebElement optionYandexDisk;
+    @FindBy(xpath = "//span[text()='Ссылка']")
+    private WebElement changeFileSrcType;
+    @FindBy(css = "input[formcontrolname=\"file_address\"]")
+    private WebElement inputYandexAddress;
+    @FindBy(css = ".notifier__notification")
+    private WebElement notification;
     
     public CreateDatasourcePage(AbstractBaseDriver baseDriver) {
         PageFactory.initElements(baseDriver.driver, this);
@@ -39,8 +51,8 @@ public class CreateDatasourcePage {
         this.driver = baseDriver.driver;
     }
 
-    @Step(value = "Заполнение формы создания источника")
-    public void fillForm() {
+    @Step(value = "Заполнение формы подключения к Clickhouse")
+    public void fillFormClickhouse() {
         connType.click();
         optionClickhouse.click();
         inputConnName.sendKeys(ConfProperties.getProperty("db_conn"));
@@ -50,15 +62,49 @@ public class CreateDatasourcePage {
         inputPassword.sendKeys(ConfProperties.getProperty("db_password"));
     }
 
+    @Step(value = "Заполнение формы подключения к Яндекс диску")
+    public void fillFormYandexDisk() {
+        connType.click();
+        inputFind.sendKeys("Файл");
+        optionYandexDisk.click();
+        inputConnName.sendKeys(ConfProperties.getProperty("yndx_conn"));
+        changeFileSrcType.click();
+        inputYandexAddress.sendKeys(ConfProperties.getProperty("yndx_address"));
+        inputPassword.sendKeys(ConfProperties.getProperty("yndx_password"));
+        saveDatasrc();
+    }
+
     @Step(value = "Проверка соединения")
-    public void checkConn() {
+    public void checkConnDb() {
         checkConnBtn.click();
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notifier__notification")));
     }
 
-    @Step(value = "Проверка укведомления о подключении")
-    public Boolean validCreationDatasrc() {
+    @Step(value = "Сохранение источника")
+    public void saveDatasrc() {
+        saveBtn.click();
+    }
+
+    @Step(value = "Проверка уведомления об успешном подключении")
+    public Boolean validLinkDatasrc() {
+        String classes = notification.getAttribute("class");
+        for (String c : classes.split(" ")) {
+            if (c.equals("notifier__notification--error")) {
+                return false;
+            }
+        };
         return true;
+    }
+
+    @Step(value = "Проверка уведомления о неуспешном подключении")
+    public Boolean invalidLinkDatasrc() {
+        String classes = notification.getAttribute("class");
+        for (String c : classes.split(" ")) {
+            if (c.equals("notifier__notification--error")) {
+                return true;
+            }
+        };
+        return false;
     }
 }

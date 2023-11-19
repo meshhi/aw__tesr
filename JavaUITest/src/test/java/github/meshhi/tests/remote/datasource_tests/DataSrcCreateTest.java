@@ -17,15 +17,29 @@ public class DataSrcCreateTest extends BaseStartTestDecorator {
     @Feature(value = "Источники")
     @Story(value = "Создание источника")
     @Test
-    @Description(value = "Тест проверяет создание подключения к источнику ClickHouse")
-    public void createDatasrc() throws InterruptedException {
-        Assert.assertTrue(driver.getCurrentURL().contains("/app/sources"));
+    @Description(value = "Тест проверяет неуспешное подключение к источнику ClickHouse")
+    public void testDatasrcClickhouse() throws InterruptedException {
         MainWindowPage mainWindowPage = new MainWindowPage(driver);
         mainWindowPage.clickGoToDatasrc();
         mainWindowPage.clickAdd();
         CreateDatasourcePage createDatasourcePage = new CreateDatasourcePage(driver);
-        createDatasourcePage.fillForm();
-        createDatasourcePage.checkConn();
-        Assert.assertTrue(createDatasourcePage.validCreationDatasrc());
+        createDatasourcePage.fillFormClickhouse();
+        createDatasourcePage.checkConnDb();
+        Assert.assertTrue(createDatasourcePage.invalidLinkDatasrc());
+    }
+
+    @Epic(value = "AW UI тесты")
+    @Feature(value = "Источники")
+    @Story(value = "Создание источника")
+    @Test
+    @Description(value = "Тест проверяет создание файлового источника Яндекс диск")
+    public void testDatasrcYandexDisk() throws InterruptedException {
+        MainWindowPage mainWindowPage = new MainWindowPage(driver);
+        mainWindowPage.clickGoToDatasrc();
+        mainWindowPage.clickAdd();
+        CreateDatasourcePage createDatasourcePage = new CreateDatasourcePage(driver);
+        createDatasourcePage.fillFormYandexDisk();
+        Thread.sleep(5000);
+        Assert.assertTrue(driver.getCurrentURL().contains("/app/sources"));
     }
 }
