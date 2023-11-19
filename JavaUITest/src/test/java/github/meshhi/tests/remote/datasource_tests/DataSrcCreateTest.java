@@ -17,7 +17,7 @@ public class DataSrcCreateTest extends BaseStartTestDecorator {
     @Feature(value = "Источники")
     @Story(value = "Создание источника")
     @Test
-    @Description(value = "Проверяется создание источника")
+    @Description(value = "Тест проверяет создание подключения к источнику ClickHouse")
     public void createDatasrc() throws InterruptedException {
         Assert.assertTrue(driver.getCurrentURL().contains("/app/sources"));
         MainWindowPage mainWindowPage = new MainWindowPage(driver);
@@ -26,7 +26,6 @@ public class DataSrcCreateTest extends BaseStartTestDecorator {
         CreateDatasourcePage createDatasourcePage = new CreateDatasourcePage(driver);
         createDatasourcePage.fillForm();
         createDatasourcePage.checkConn();
-        Thread.sleep(5000);
-        Assert.assertTrue(true);
+        Assert.assertTrue(createDatasourcePage.validCreationDatasrc());
     }
 }

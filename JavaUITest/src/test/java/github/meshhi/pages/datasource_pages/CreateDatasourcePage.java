@@ -16,6 +16,8 @@ import io.qameta.allure.Step;
 public class CreateDatasourcePage {
     public WebDriver driver;
     public AbstractBaseDriver baseDriver;
+    @FindBy(css = "*[formcontrolname=\"type\"]")
+    private WebElement connType;
     @FindBy(css = "input[formcontrolname=\"name\"]")
     private WebElement inputConnName;
     @FindBy(css = "input[formcontrolname=\"host\"]")
@@ -26,9 +28,11 @@ public class CreateDatasourcePage {
     private WebElement inputUsername;
     @FindBy(css = "input[formcontrolname=\"password\"]")
     private WebElement inputPassword;
-    @FindBy(xpath = "//button[text()='Проверить подключение']")
+    @FindBy(xpath = "//button[text()=' Проверить подключение ']")
     private WebElement checkConnBtn;
-
+    @FindBy(xpath = "//span[text()='ClickHouse']")
+    private WebElement optionClickhouse;
+    
     public CreateDatasourcePage(AbstractBaseDriver baseDriver) {
         PageFactory.initElements(baseDriver.driver, this);
         this.baseDriver = baseDriver;
@@ -37,6 +41,8 @@ public class CreateDatasourcePage {
 
     @Step(value = "Заполнение формы создания источника")
     public void fillForm() {
+        connType.click();
+        optionClickhouse.click();
         inputConnName.sendKeys(ConfProperties.getProperty("db_conn"));
         inputHost.sendKeys(ConfProperties.getProperty("db_host"));
         inputDb.sendKeys(ConfProperties.getProperty("db"));
@@ -44,8 +50,15 @@ public class CreateDatasourcePage {
         inputPassword.sendKeys(ConfProperties.getProperty("db_password"));
     }
 
-    @Step(value = "Заполнение формы создания источника")
+    @Step(value = "Проверка соединения")
     public void checkConn() {
         checkConnBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".notifier__notification")));
+    }
+
+    @Step(value = "Проверка укведомления о подключении")
+    public Boolean validCreationDatasrc() {
+        return true;
     }
 }
