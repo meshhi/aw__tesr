@@ -2,6 +2,9 @@ package github.meshhi.webdriver;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
 import io.qameta.allure.Step;
 
 
@@ -22,6 +25,11 @@ public abstract class AbstractBaseDriver implements IBaseDriver {
 
     public String getCurrentURL() {
         return driver.getCurrentUrl();
+    }
+
+    public void hoverElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).build().perform();
     }
 
     public void setDriverSettings() {

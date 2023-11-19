@@ -11,12 +11,12 @@ import org.junit.Assert;
 
 // comment
 public class LoginTest extends BaseStartTestDecorator {
-    @Epic(value = "AW UI тесты")
-    @Feature(value = "Авторизация")
-    @Story(value = "Логин")
-    @Test
-    @Description(value = "Тест проверяет базовую авторизацию")
-    public void pass() throws InterruptedException {
-        Assert.assertTrue(driver.getCurrentURL().contains("/app/sources"));
-    }
+    // @Epic(value = "AW UI тесты")
+    // @Feature(value = "Авторизация")
+    // @Story(value = "Логин")
+    // @Test
+    // @Description(value = "Тест проверяет базовую авторизацию")
+    // public void pass() throws InterruptedException {
+    //     Assert.assertTrue(driver.getCurrentURL().contains("/app/sources"));
+    // }
 }

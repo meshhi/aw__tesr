@@ -14,13 +14,17 @@ import github.meshhi.utils.Warehouse;
 import io.qameta.allure.Step;
 public class MainWindowPage {
     public WebDriver driver;
+    public AbstractBaseDriver baseDriver;
     @FindBy(css = "*[href=\"/app/sources\"]")
     private WebElement goToDatasrcBtn;
     @FindBy(css = "*[href=\"/app/models\"]")
     private WebElement goToModelBtn;
+    @FindBy(xpath = "//button[text()='Добавить']")
+    private WebElement addBtn;
 
     public MainWindowPage(AbstractBaseDriver baseDriver) {
         PageFactory.initElements(baseDriver.driver, this);
+        this.baseDriver = baseDriver;
         this.driver = baseDriver.driver;
     }
 
@@ -32,5 +36,11 @@ public class MainWindowPage {
     @Step(value = "Переход к моделям")
     public void clickGoToModel() {
         goToModelBtn.click();
+    }
+
+    @Step(value = "Добавить")
+    public void clickAdd() {
+        baseDriver.hoverElement(addBtn);
+        addBtn.click();
     }
 }
