@@ -26,7 +26,7 @@ public class ModelCreateTest extends BaseStartTestDecorator {
         modelPage.renameModel("Test model Selenium");
         modelPage.clickSchema();
         Thread.sleep(1000);
-        Assert.assertTrue(modelPage.getTitle() == "Test model Selenium");
+        Assert.assertTrue(modelPage.getTitle().contains("Test model Selenium"));
     }
 
     @Epic(value = "AW UI тесты")

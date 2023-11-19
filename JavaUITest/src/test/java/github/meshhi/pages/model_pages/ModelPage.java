@@ -62,14 +62,14 @@ public class ModelPage {
         act.dragAndDrop(block, schemaWindow).build().perform();
 
         wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[title=\"" + modelName + "\\\"]")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[title=\"" + modelName + "\"]")));
     }
 
     @Step(value = "Проверка, что блок добавлен на схему")
     public Boolean checkBlockOnSchema(String blockName) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 10);
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[title=\"" + blockName + "\\\"]")));
+            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[title=\"" + blockName + "\"]")));
             return true;
         } catch (Exception e) {
             return false;
