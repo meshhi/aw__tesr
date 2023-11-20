@@ -19,6 +19,8 @@ public class MainWindowPage {
     private WebElement goToDatasrcBtn;
     @FindBy(css = "*[href=\"/app/models\"]")
     private WebElement goToModelBtn;
+    @FindBy(css = "*[href=\"/app/widgets\"]")
+    private WebElement goToWidgetBtn;
     @FindBy(xpath = "//*[text()='Добавить']")
     private WebElement addBtn;
     @FindBy(css = "input[placeholder='Поиск']")
@@ -39,11 +41,15 @@ public class MainWindowPage {
     @Step(value = "Переход к источникам данных")
     public void clickGoToDatasrc() {
         goToDatasrcBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.urlContains("app/sources"));
     }
 
     @Step(value = "Переход к моделям")
     public void clickGoToModel() {
         goToModelBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.urlContains("app/models"));
     }
 
     @Step(value = "Выбор логической модели")
@@ -51,6 +57,12 @@ public class MainWindowPage {
         optionAddLogicalModel.click();
     }
     
+    @Step(value = "Переход к виджетам")
+    public void clickGoToWidget() {
+        goToWidgetBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.urlContains("app/widgets"));
+    }
 
     @Step(value = "Добавить")
     public void clickAdd() {
