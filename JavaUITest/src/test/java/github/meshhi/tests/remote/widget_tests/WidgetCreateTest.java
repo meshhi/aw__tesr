@@ -9,6 +9,7 @@ import github.meshhi.pages.model_pages.ModelPage;
 import github.meshhi.pages.widget_pages.WidgetPage;
 import github.meshhi.tests.remote.BaseStartTestDecorator;
 import github.meshhi.utils.ConfProperties;
+import github.meshhi.utils.FieldClass;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -54,7 +55,11 @@ public class WidgetCreateTest extends BaseStartTestDecorator {
     public void testCreateCycleDiagram() throws InterruptedException {
         testRenameDiagram();
         WidgetPage widgetPage = new WidgetPage(driver);
-
-        Assert.assertTrue(widgetPage.getTitle().contains("widgets/update"));
+        widgetPage.addField("Клиенты", FieldClass.GROUP);
+        widgetPage.addField("Выручка", FieldClass.COLUMN);
+        widgetPage.changeView();
+        String widgetName = "test_cycle__success";
+        widgetPage.renameWidget(widgetName);
+        Assert.assertTrue(widgetPage.getTitle().contains(widgetName));
     }
 }
